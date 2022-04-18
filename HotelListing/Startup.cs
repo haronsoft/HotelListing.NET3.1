@@ -1,4 +1,7 @@
+using HotelListing.Configurations;
 using HotelListing.Data;
+using HotelListing.IRepository;
+using HotelListing.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +34,10 @@ namespace HotelListing
             {
                 option.AddPolicy("AllowAll",b=>b.AllowAnyHeader().AllowAnyMethod());
             });
+
+            services.AddAutoMapper(typeof(MapperConfig));
+            //add repositories
+            services.AddScoped<ICountriesRepository, CountriesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
