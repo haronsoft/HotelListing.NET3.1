@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HotelListing.Repository
 {
-    public class CountriesRepository :GenericRepository<Country> , ICountriesRepository
+    public class CountriesRepository : GenericRepository<Country>, ICountriesRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -15,7 +15,12 @@ namespace HotelListing.Repository
         }
 
 
-        public async Task<Country> GetDetails(int id)
+    /*    public async Task<Country> GetDetails(int id)
+        {
+            return await _context.Countries.Include(q => q.Hotels).FirstOrDefaultAsync(q => q.Id == id);
+        }
+*/
+       async Task<Country> ICountriesRepository.GetDetails(int id)
         {
             return await _context.Countries.Include(q => q.Hotels).FirstOrDefaultAsync(q => q.Id == id);
         }

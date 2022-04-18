@@ -26,9 +26,9 @@ namespace HotelListing.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetCountryDto>>> GetCountries()
         {
-            var countries = await _countriesRepository.GetAllAsyc();
+            var countries = await _countriesRepository.GetAllAsync();
             var records = _mapper.Map<List<GetCountryDto>>(countries);
-          return Ok(records);
+            return Ok(records);
         }
 
         // GET: api/Countries/5
@@ -69,7 +69,7 @@ namespace HotelListing.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!await CountryExists(id))
                 {
                     return NotFound();
                 }
