@@ -1,5 +1,7 @@
+using HotelListing.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,6 +21,10 @@ namespace HotelListing
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //Add connection string
+            services.AddDbContext<ApplicationDbContext>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("connect")));
 
             //Allow Acces to any pc outside hosted env
             services.AddCors(option =>
